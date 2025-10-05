@@ -1,4 +1,6 @@
 # Spotify
 Ad-free Spotify client for Windows
-Installation:
-Just download and run AdFreeSpotifyInstall
+
+  Installation:
+
+  Just download and run AdFreeSpotifyInstall
