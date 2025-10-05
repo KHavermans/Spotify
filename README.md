@@ -1,6 +1,15 @@
-# Spotify
-Ad-free Spotify client for Windows
+# Ad-Free Spotify for Windows
 
-  Installation:
+A lightweight installer script for a clean, ad-free Spotify experience on Windows.
 
-  Just download and run AdFreeSpotifyInstall
+## Installation
+
+Click the link below to download the installer:
+
+👉 [Download AdFreeSpotifyInstall.bat](https://raw.githubusercontent.com/KHavermans/Spotify/refs/heads/main/AdFreeSpotifyInstall.bat)
+
+## Notes
+
+- Works only on Windows.
+- Run the script as Administrator.
+- Make sure Spotify is closed before running.
