@@ -6,7 +6,8 @@ A lightweight installer script for a clean, ad-free Spotify experience on Window
 
 Click the link below to download the installer:
 
-👉 [Download AdFreeSpotifyInstall.bat](https://raw.githubusercontent.com/KHavermans/Spotify/main/AdFreeSpotifyInstall.bat)
+<a href="https://raw.githubusercontent.com/KHavermans/Spotify/main/AdFreeSpotifyInstall.bat" download>👉 Download AdFreeSpotifyInstall.bat</a>
+
 
 ## Notes
 
