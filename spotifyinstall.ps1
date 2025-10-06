@@ -102,12 +102,6 @@ function Test-SpotifyVersion
   }
 }
 
-Write-Host @'
-**********************************
-Authors: @Nuzair46, @KUTlime
-**********************************
-'@
-
 $spotifyDirectory = Join-Path -Path $env:APPDATA -ChildPath 'Spotify'
 $spotifyExecutable = Join-Path -Path $spotifyDirectory -ChildPath 'Spotify.exe'
 $spotifyApps = Join-Path -Path $spotifyDirectory -ChildPath 'Apps'
@@ -164,7 +158,7 @@ if (-not $spotifyInstalled) {
 
 if (-not $UpdateSpotify -and $unsupportedClientVersion)
 {
-  if ((Read-Host -Prompt 'In order to install Block the Spot, your Spotify client must be updated. Do you want to continue? (Y/N)') -ne 'y')
+  if ((Read-Host -Prompt 'In order to install, your Spotify client must be updated. Do you want to continue? (Y/N)') -ne 'y')
   {
     exit
   }
@@ -193,21 +187,17 @@ if (-not $spotifyInstalled -or $UpdateSpotify -or $unsupportedClientVersion)
 
   [System.Security.Principal.WindowsPrincipal] $principal = [System.Security.Principal.WindowsIdentity]::GetCurrent()
   $isUserAdmin = $principal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)
-  Write-Host 'Running installation...'
   if ($isUserAdmin)
   {
     Write-Host
-    Write-Host 'Creating scheduled task...'
     $apppath = 'powershell.exe'
     $taskname = 'Spotify install'
     $action = New-ScheduledTaskAction -Execute $apppath -Argument "-NoLogo -NoProfile -Command & `'$spotifySetupFilePath`'"
     $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date)
     $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -WakeToRun
     Register-ScheduledTask -Action $action -Trigger $trigger -TaskName $taskname -Settings $settings -Force | Write-Verbose
-    Write-Host 'The install task has been scheduled. Starting the task...'
     Start-ScheduledTask -TaskName $taskname
     Start-Sleep -Seconds 2
-    Write-Host 'Unregistering the task...'
     Unregister-ScheduledTask -TaskName $taskname -Confirm:$false
     Start-Sleep -Seconds 2
   }
@@ -222,9 +212,6 @@ if (-not $spotifyInstalled -or $UpdateSpotify -or $unsupportedClientVersion)
     Start-Sleep -Milliseconds 100
   }
 
-
-  Write-Host 'Stopping Spotify...Again'
-
   Stop-Process -Name Spotify
   Stop-Process -Name SpotifyWebHelper
   if ([Environment]::Is64BitOperatingSystem) { # Check if the computer is running a 64-bit version of Windows
@@ -234,7 +221,6 @@ if (-not $spotifyInstalled -or $UpdateSpotify -or $unsupportedClientVersion)
   }
 }
 
-Write-Host "Downloading latest patch (chrome_elf.zip)...`n"
 $elfPath = Join-Path -Path $PWD -ChildPath 'chrome_elf.zip'
 try
 {
@@ -260,7 +246,6 @@ catch
 Expand-Archive -Force -LiteralPath "$elfPath" -DestinationPath $PWD
 Remove-Item -LiteralPath "$elfPath" -Force
 
-Write-Host 'Patching Spotify...'
 $patchFiles = (Join-Path -Path $PWD -ChildPath 'dpapi.dll'), (Join-Path -Path $PWD -ChildPath 'config.ini')
 
 Copy-Item -LiteralPath $patchFiles -Destination "$spotifyDirectory"
@@ -288,8 +273,6 @@ $tempDirectory = $PWD
 Pop-Location
 
 Remove-Item -LiteralPath $tempDirectory -Recurse
-
-Write-Host 'Patching Complete, starting Spotify...'
 
 Start-Process -WorkingDirectory $spotifyDirectory -FilePath $spotifyExecutable
 Write-Host 'Done.'
