@@ -128,7 +128,7 @@ if (Get-AppxPackage -Name SpotifyAB.SpotifyMusic)
   }
   else
   {
-    Read-Host "Exiting...`nPress any key to exit..."
+    Read-Host "Exiting...`nYou can close this window"
     exit
   }
 }
@@ -144,7 +144,7 @@ try
 catch
 {
   Write-Output $_
-  Read-Host 'Press any key to exit...'
+  Read-Host 'You can close this window'
   exit
 }
 
@@ -180,7 +180,7 @@ if (-not $spotifyInstalled -or $UpdateSpotify -or $unsupportedClientVersion)
   catch
   {
     Write-Output $_
-    Read-Host 'Press any key to exit...'
+    Read-Host 'You can close this window'
     exit
   }
   New-Item -Path $spotifyDirectory -ItemType:Directory -Force | Write-Verbose
